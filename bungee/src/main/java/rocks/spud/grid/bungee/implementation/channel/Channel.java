@@ -57,8 +57,7 @@ public abstract class Channel implements IChannel {
                         convertedMessage = TextComponent.fromLegacyText (message);
 
                 this.subscribers.forEach ((s) -> s.sendMessage (convertedMessage));
-
-is.subscribers);
+                return this;
         }
 
         /**
@@ -66,8 +65,7 @@ is.subscribers);
          */
         @Override
         public boolean isSubscribed (@Nonnull ProxiedPlayer player) {
-                return this.subs         r
-    return this;
+                return this.subscribers.contains (player);
         }
 
         /**
@@ -76,8 +74,7 @@ is.subscribers);
         @Nonnull
         @Override
         public String name () {
-       bleSet (th
-eturn this.name;
+                return this.name;
         }
 
         /**
@@ -86,8 +83,7 @@ eturn this.name;
         @Nonnull
         @Override
         public Set<ProxiedPlayer> players () {
-                return Collections.unmodifiacribers.co
-ntains (player);
+                return Collections.unmodifiableSet (this.subscribers);
         }
 
         /**
