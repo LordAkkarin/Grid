@@ -19,8 +19,10 @@ package rocks.spud.grid.bungee.implementation.configuration;
 import com.google.common.collect.ImmutableSet;
 import com.torchmind.candle.Candle;
 import com.torchmind.candle.CandleWriter;
+import com.torchmind.candle.api.ICommentNode;
 import com.torchmind.candle.api.IObjectNode;
 import com.torchmind.candle.api.error.CandleException;
+import com.torchmind.candle.api.property.array.IStringArrayPropertyNode;
 import com.torchmind.candle.node.CommentNode;
 import com.torchmind.candle.node.ObjectNode;
 import com.torchmind.candle.node.property.BooleanPropertyNode;
@@ -67,11 +69,12 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
 
         public static final String DEFAULT_FORMAT = "[%1$s] <%2$s> %3$s";
         public static final String DEFAULT_CHANNEL = "Global";
-        public static final String[] DEFAULT_CHANNELS = new String[] { "Global" };
+        public static final String[] DEFAULT_CHANNELS = new String[] { "Global", "Admins" };
         public static final boolean DEFAULT_REGISTER_SHORTHAND_COMMANDS = true;
 
         private final Map<String, ServerGridConfiguration> configurationMap = new HashMap<> ();
 
+        private final Map<String, Set<String>> autosubscribeGroups = new HashMap<> ();
         private final String format;
         private final String defaultChannel;
         private final Set<String> channels;
@@ -86,8 +89,16 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
                 this.channels = ImmutableSet.copyOf (document.getStringArray ("global.channels", DEFAULT_CHANNELS));
                 this.registerShorthandCommands = document.getBoolean ("global.registerShorthandCommands", DEFAULT_REGISTER_SHORTHAND_COMMANDS);
 
+                document.get ("autosubscribe", IObjectNode.class).forEach ((p) -> {
+                        if (p instanceof ICommentNode) return;
+                        if (!(p instanceof IStringArrayPropertyNode)) throw new RuntimeException ("Auto-Subscribe groups may only be configured as string arrays");
+                        IStringArrayPropertyNode node = ((IStringArrayPropertyNode) p);
+
+                        this.autosubscribeGroups.put (node.name (), ImmutableSet.copyOf (node.array ()));
+                });
+
                 document.forEach (IObjectNode.class, (o) -> {
-                        if (o.name ().equalsIgnoreCase ("global")) return;
+                        if (o.name ().equalsIgnoreCase ("global") || o.name ().equalsIgnoreCase ("autosubscribe")) return;
                         configurationMap.put (o.name (), new ServerGridConfiguration (o));
                 });
         }
@@ -133,15 +144,16 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
          */
         private static void createDefaults (@Nonnull Candle document) {
                 // global
+                IObjectNode global;
+
                 if (!document.isPresent ("global")) {
                         CommentNode comment = new CommentNode (document, " Defines a list of global (proxy-wide) settings that affect all servers within the network.");
                         document.append (comment);
 
-                        ObjectNode node = new ObjectNode (document, "global");
-                        document.append (node);
-                }
-
-                IObjectNode global = document.get ("global", IObjectNode.class);
+                        global = new ObjectNode (document, "global");
+                        document.append (global);
+                } else
+                        global = document.get ("global", IObjectNode.class);
 
                 // global.format
                 if (!global.isPresent ("format")) {
@@ -187,6 +199,38 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
                         StringArrayPropertyNode node = new StringArrayPropertyNode (document, "channels", DEFAULT_CHANNELS);
                         global.append (node);
                 }
+
+                // autosubscribe
+                if (!document.isPresent ("autosubscribe")) {
+                        CommentNode comment0 = new CommentNode (document, " Defines a set of auto-subscribe groups.");
+                        CommentNode comment1 = new CommentNode (document, " Players with the right permission node (grid.autosubscribe.<groupName>) will be added to these groups automatically.");
+                        document.append (comment0);
+                        document.append (comment1);
+
+                        ObjectNode autosubscribe = new ObjectNode (document, "autosubscribe");
+                        document.append (autosubscribe);
+
+                        StringArrayPropertyNode adminGroup = new StringArrayPropertyNode (document, "admin", new String[] { "Admins" });
+                        autosubscribe.append (adminGroup);
+                }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Nonnull
+        @Override
+        public Set<String> autosubscribeGroups () {
+                return Collections.unmodifiableSet (this.autosubscribeGroups.keySet ());
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Nonnull
+        @Override
+        public Optional<Set<String>> autosubscribeGroup (@Nonnull String name) {
+                return Optional.ofNullable (this.autosubscribeGroups.get (name));
         }
 
         /**

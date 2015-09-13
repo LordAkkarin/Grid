@@ -27,6 +27,21 @@ import java.util.Set;
 public interface IGlobalGridConfiguration extends IGridConfiguration {
 
         /**
+         * Retrieves a list of auto-subscribe groups.
+         * @return The names.
+         */
+        @Nonnull
+        Set<String> autosubscribeGroups ();
+
+        /**
+         * Retrieves a list of channels included in an auto-subscribe group (if any).
+         * @param name The group name.
+         * @return The channel names.
+         */
+        @Nonnull
+        Optional<Set<String>> autosubscribeGroup (@Nonnull String name);
+
+        /**
          * Retrieves a list of permanent channel names.
          * @return The names.
          */

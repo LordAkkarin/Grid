@@ -21,8 +21,10 @@ import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import rocks.spud.grid.bungee.GridPlugin;
+import rocks.spud.grid.bungee.implementation.channel.Channel;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 /**
  * Handles chat related event handling.
@@ -75,6 +77,24 @@ public class PlayerListener implements Listener {
                 // noinspection ConstantConditions
                 this.plugin.api ().getDefaultChannel ().subscribe (event.getPlayer ());
                 this.plugin.getLogger ().info ("Subscribed " + event.getPlayer ().getDisplayName () + " to global channel.");
+
+                // noinspection ConstantConditions
+                for (String group : this.plugin.api ().configuration ().autosubscribeGroups ()) {
+                        if (!event.getPlayer ().hasPermission ("grid.autosubscribe." + group)) continue;
+                        // noinspection ConstantConditions
+                        this.plugin.api ().configuration ().autosubscribeGroup (group)
+                                .ifPresent ((g) -> g.forEach ((c) -> {
+                                        // noinspection ConstantConditions
+                                        Optional<Channel> channel = this.plugin.api ().getChannel (c);
+
+                                        if (!channel.isPresent ())
+                                                this.plugin.getLogger ().warning ("Channel \"" + c + "\" in autosubscribe group \"" + group + "\" does not exist.");
+                                        else {
+                                                channel.get ().subscribe (event.getPlayer ());
+                                                this.plugin.getLogger ().info ("Subscribed " + event.getPlayer ().getDisplayName () + " to channel \"" + c + "\" via autosubscribe group \"" + group + "\"");
+                                        }
+                                }));
+                }
         }
 
         /**
