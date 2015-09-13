@@ -45,6 +45,16 @@
                         <groupId>rocks.spud.grid</groupId>
                         <artifactId>bungee</artifactId>
                 </dependency>
+
+                <dependency>
+                        <groupId>rocks.spud.grid.bungee</groupId>
+                        <artifactId>api</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>rocks.spud.grid.bukkit</groupId>
+                        <artifactId>api</artifactId>
+                </dependency>
         </dependencies>
 
         <!-- Build Settings -->
@@ -84,6 +94,21 @@
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-javadoc-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Assembly -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-assembly-plugin</artifactId>
+
+                                <configuration>
+                                        <finalName>Grid</finalName>
+
+                                        <descriptors>
+                                                <descriptor>src/assembly/enduser.xml</descriptor>
+                                                <descriptor>src/assembly/development.xml</descriptor>
+                                        </descriptors>
+                                </configuration>
                         </plugin>
                 </plugins>
         </build>
