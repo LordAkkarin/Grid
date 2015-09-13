@@ -66,8 +66,8 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
                 " * https://github.com/PlaySpud/Grid/wiki/Configuration\n ";
 
         public static final String DEFAULT_FORMAT = "[%1$s] <%2$s> %3$s";
-        public static final String DEFAULT_CHANNEL = "global";
-        public static final String[] DEFAULT_CHANNELS = new String[] { "global" };
+        public static final String DEFAULT_CHANNEL = "Global";
+        public static final String[] DEFAULT_CHANNELS = new String[] { "Global" };
         public static final boolean DEFAULT_REGISTER_SHORTHAND_COMMANDS = true;
 
         private final Map<String, ServerGridConfiguration> configurationMap = new HashMap<> ();
