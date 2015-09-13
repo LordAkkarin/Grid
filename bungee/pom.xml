@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2015 Johannes Donath <johannesd@torchmind.com>
+  ~ and other copyright owners as documented in the project's IP log.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <!-- Parent Artifact Information -->
+        <parent>
+                <artifactId>parent</artifactId>
+                <groupId>rocks.spud.grid</groupId>
+                <version>1.0-SNAPSHOT</version>
+        </parent>
+
+        <!-- Artifact Information -->
+        <artifactId>bungee</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>jar</packaging>
+
+        <!-- Artifact Metadata -->
+        <name>Grid BungeeCord Plugin</name>
+        <description>Provides the base implementation for the Grid chat system.</description>
+
+        <!-- Dependencies -->
+        <dependencies>
+                <dependency>
+                        <groupId>rocks.spud.grid.bungee</groupId>
+                        <artifactId>api</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>rocks.spud.grid</groupId>
+                        <artifactId>common</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>net.md-5</groupId>
+                        <artifactId>bungeecord-api</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>com.torchmind.candle</groupId>
+                        <artifactId>tree</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>findbugs</artifactId>
+                </dependency>
+        </dependencies>
+
+        <!-- Build Settings -->
+        <build>
+                <resources>
+                        <!-- Plugin Metadata -->
+                        <resource>
+                                <directory>${project.basedir}/src/main/resources</directory>
+                                <targetPath>.</targetPath>
+                                <filtering>true</filtering>
+
+                                <includes>
+                                        <include>bungee.yml</include>
+                                </includes>
+                        </resource>
+                </resources>
+
+                <plugins>
+                        <!-- Java Compiler Plugin -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-compiler-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Jar Creation -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-jar-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Shade -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-shade-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Findbugs -->
+                        <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>findbugs-maven-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Attach Sources -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-source-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Attach JavaDoc -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                        </plugin>
+                </plugins>
+        </build>
+</project>
