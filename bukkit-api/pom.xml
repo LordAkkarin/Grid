@@ -28,7 +28,6 @@
         <!-- Artifact Information -->
         <groupId>rocks.spud.grid.bukkit</groupId>
         <artifactId>api</artifactId>
-        <version>1.0-SNAPSHOT</version>
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->

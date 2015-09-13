@@ -27,7 +27,6 @@
 
         <!-- Artifact Information -->
         <artifactId>bukkit</artifactId>
-        <version>1.0-SNAPSHOT</version>
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->

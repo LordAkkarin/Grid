@@ -27,7 +27,6 @@
 
         <!-- Artifact Information -->
         <artifactId>common</artifactId>
-        <version>1.0-SNAPSHOT</version>
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->
