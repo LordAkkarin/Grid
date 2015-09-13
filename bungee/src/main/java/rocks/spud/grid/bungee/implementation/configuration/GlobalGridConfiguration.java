@@ -96,6 +96,14 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
                 this (Candle.readFile (configurationFile));
         }
 
+        /**
+         * Creates a {@link rocks.spud.grid.bungee.implementation.configuration.GlobalGridConfiguration} instance based
+         * on a {@link java.io.File} reference.
+         * @param file The {@link java.io.File} reference.
+         * @return The {@link rocks.spud.grid.bungee.implementation.configuration.GlobalGridConfiguration} instance.
+         * @throws com.torchmind.candle.api.error.CandleException when saving the configuration is impossible.
+         * @throws java.io.IOException when reading and/or writing the file fails.
+         */
         public static GlobalGridConfiguration of (@Nonnull File file) throws CandleException, IOException {
                 try {
                         return (new GlobalGridConfiguration (file));
