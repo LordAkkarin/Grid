@@ -1,0 +1,33 @@
+Grid Plugin Installation
+========================
+Grid provides an effective, simple and lightweight chat solution for BungeeCord networks. This document is aimed at new
+users who have no experience with installing hybrid (universal) plugins. Feel free to skip this guide if you are capable
+of utilizing your common sense!
+
+1.0 Distributions
+-----------------
+Grid is distributed in two flavors that are designed for users of different experience levels:
+* Universal (entry level)
+* Advanced (advanced users)
+
+The universal distribution may be installed on both BungeeCord and Bukkit. The advanced distribution was designed to be
+used by users who prefer lightweight installations and comes with separate jars for BungeeCord and Bukkit.
+
+2.0 BungeeCord
+--------------
+1. Choose a jar (either universal or advanced)
+2. Drop into BungeeCord's plugin directory (this directory is usually located next to your BungeeCord jar)
+3. (Re-)Start BungeeCord
+
+The plugin will now create it's default configurations automatically. You may change the settings by navigating to the
+plugin directory (plugins/Grid) and editing the config.cndl. An in-depth documentation can be found at
+https://github.com/PlaySpud/Grid/wiki/Configuration
+
+3.0 CraftBukkit/Spigot
+----------------------
+1. Choose a jar (either universal or advanced)
+2. Drop into CraftBukkit/Spigot's plugin directory (this directory is usually located next to your CraftBukkit/Spigot jar)
+3. (Re-)Start CraftBukkit/Spigot
+
+Note: The Bukkit plugin does not provide any functionality for end users. You will only need to install it if you have
+one or more plugins that interact with Grid.
