@@ -1,0 +1,4 @@
+name: Grid
+version: ${project.version}
+author: "${project.organization.name}"
+main: rocks.spud.grid.bukkit.GridPlugin

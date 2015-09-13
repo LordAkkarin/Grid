@@ -1,0 +1,4 @@
+name: Grid
+main: rocks.spud.grid.bungee.GridPlugin
+version: ${project.version}
+author: "${project.organization.name}"
