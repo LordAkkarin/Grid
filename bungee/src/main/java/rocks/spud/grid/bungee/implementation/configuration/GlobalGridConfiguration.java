@@ -16,6 +16,7 @@
  */
 package rocks.spud.grid.bungee.implementation.configuration;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.torchmind.candle.Candle;
 import com.torchmind.candle.CandleWriter;
@@ -72,9 +73,9 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
         public static final String[] DEFAULT_CHANNELS = new String[] { "Global", "Admins" };
         public static final boolean DEFAULT_REGISTER_SHORTHAND_COMMANDS = true;
 
-        private final Map<String, ServerGridConfiguration> configurationMap = new HashMap<> ();
+        private final Map<String, ServerGridConfiguration> configurationMap;
 
-        private final Map<String, Set<String>> autosubscribeGroups = new HashMap<> ();
+        private final Map<String, Set<String>> autosubscribeGroups;
         private final String format;
         private final String defaultChannel;
         private final Set<String> channels;
@@ -89,18 +90,33 @@ public class GlobalGridConfiguration implements IGlobalGridConfiguration {
                 this.channels = ImmutableSet.copyOf (document.getStringArray ("global.channels", DEFAULT_CHANNELS));
                 this.registerShorthandCommands = document.getBoolean ("global.registerShorthandCommands", DEFAULT_REGISTER_SHORTHAND_COMMANDS);
 
-                document.get ("autosubscribe", IObjectNode.class).forEach ((p) -> {
-                        if (p instanceof ICommentNode) return;
-                        if (!(p instanceof IStringArrayPropertyNode)) throw new RuntimeException ("Auto-Subscribe groups may only be configured as string arrays");
-                        IStringArrayPropertyNode node = ((IStringArrayPropertyNode) p);
+                {
+                        ImmutableMap.Builder<String, Set<String>> autosubscribeBuilder = ImmutableMap.builder ();
 
-                        this.autosubscribeGroups.put (node.name (), ImmutableSet.copyOf (node.array ()));
-                });
+                        document.get ("autosubscribe", IObjectNode.class).forEach ((p) -> {
+                                if (p instanceof ICommentNode) return;
+                                if (!(p instanceof IStringArrayPropertyNode))
+                                        throw new RuntimeException ("Auto-Subscribe groups may only be configured as string arrays");
+                                IStringArrayPropertyNode node = ((IStringArrayPropertyNode) p);
 
-                document.forEach (IObjectNode.class, (o) -> {
-                        if (o.name ().equalsIgnoreCase ("global") || o.name ().equalsIgnoreCase ("autosubscribe")) return;
-                        configurationMap.put (o.name (), new ServerGridConfiguration (o));
-                });
+                                autosubscribeBuilder.put (node.name (), ImmutableSet.copyOf (node.array ()));
+                        });
+
+                        this.autosubscribeGroups = autosubscribeBuilder.build ();
+                }
+
+                {
+                        ImmutableMap.Builder<String, ServerGridConfiguration> configurationMapBuilder = ImmutableMap.builder ();
+
+                        document.forEach (IObjectNode.class, (o) -> {
+                                if (o.name ().equalsIgnoreCase ("global") || o.name ().equalsIgnoreCase ("autosubscribe"))
+                                        return;
+
+                                configurationMapBuilder.put (o.name (), new ServerGridConfiguration (o));
+                        });
+
+                        this.configurationMap = configurationMapBuilder.build ();
+                }
         }
 
         public GlobalGridConfiguration (@Nonnull File configurationFile) throws CandleException, IOException {

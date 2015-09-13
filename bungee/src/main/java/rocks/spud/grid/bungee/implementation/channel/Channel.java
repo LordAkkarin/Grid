@@ -17,6 +17,7 @@
 package rocks.spud.grid.bungee.implementation.channel;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -36,7 +37,7 @@ import java.util.Set;
 public abstract class Channel implements IChannel {
         private final GlobalGridConfiguration configuration;
         private final String name;
-        private final Set<ProxiedPlayer> subscribers = new HashSet<> ();
+        private final Set<ProxiedPlayer> subscribers = Sets.newConcurrentHashSet ();
 
         public Channel (@Nonnull GlobalGridConfiguration configuration, @Nonnull String name) {
                 this.configuration = configuration;

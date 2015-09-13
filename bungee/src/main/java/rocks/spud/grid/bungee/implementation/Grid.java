@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Manages the plugin.
@@ -49,7 +50,7 @@ public class Grid implements IGrid {
         public static final String CONFIGURATION_FILE_BACKUP_NAME = "config.cndl.malformed";
         public static final String CONFIGURATION_FILE_NAME = "config.cndl";
         private final GridPlugin plugin;
-        private final Map<String, Channel> channelMap = new HashMap<> ();
+        private final Map<String, Channel> channelMap = new ConcurrentHashMap<> ();
         private final GlobalGridConfiguration configuration;
 
         public Grid (@Nonnull GridPlugin plugin) {
