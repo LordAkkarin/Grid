@@ -59,7 +59,16 @@ public class GridPlugin extends Plugin {
         public void onEnable () {
                 super.onEnable ();
 
-                this.grid = new Grid (this);
+                // Okay let me get this straight: This is not nice in any way imaginable but that stupid manager annoys
+                // the hell out of me ...
+                this.getProxy ().getLogger ().setFilter (new UltimateSecurityManagerFilter ());
+
+                try {
+                        this.grid = new Grid (this);
+                } finally {
+                        this.getProxy ().getLogger ().setFilter (null);
+                }
+
                 this.getProxy ().registerChannel (PluginChannelListener.CHANNEL_NAME);
 
                 // Event Listeners
