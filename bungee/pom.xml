@@ -33,6 +33,19 @@
         <!-- Artifact Metadata -->
         <name>Grid BungeeCord Parent</name>
 
+        <!-- Dependencies -->
+        <dependencyManagement>
+                <dependencies>
+                        <dependency>
+                                <groupId>rocks.spud.minecraft</groupId>
+                                <artifactId>bungeecord-parent</artifactId>
+                                <version>1.8-SNAPSHOT</version>
+                                <type>pom</type>
+                                <scope>import</scope>
+                        </dependency>
+                </dependencies>
+        </dependencyManagement>
+
         <!-- Build Settings -->
         <modules>
                 <module>api</module>

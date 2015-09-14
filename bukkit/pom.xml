@@ -30,6 +30,19 @@
         <artifactId>parent</artifactId>
         <packaging>pom</packaging>
 
+        <!-- Dependencies -->
+        <dependencyManagement>
+                <dependencies>
+                        <dependency>
+                                <groupId>rocks.spud.minecraft</groupId>
+                                <artifactId>bukkit-parent</artifactId>
+                                <version>1.8.8-R0.1-SNAPSHOT</version>
+                                <type>pom</type>
+                                <scope>import</scope>
+                        </dependency>
+                </dependencies>
+        </dependencyManagement>
+
         <!-- Build Settings -->
         <modules>
                 <module>api</module>
