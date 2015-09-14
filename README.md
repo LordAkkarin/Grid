@@ -48,8 +48,8 @@ via the Spud maven repository:
         </dependency>
         // OR
         <dependency>
-                <groupId>rocks.spud.grid</groupId>
-                <artifactId>bungee</artifactId>
+                <groupId>rocks.spud.grid.bungee</groupId>
+                <artifactId>plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
         </dependency>

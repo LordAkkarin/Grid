@@ -47,13 +47,21 @@
 
         <dependencySets>
                 <dependencySet>
-                        <outputDirectory>advanced</outputDirectory>
+                        <outputDirectory>plugin</outputDirectory>
                         <useProjectArtifact>false</useProjectArtifact>
-                        <outputFileNameMapping>Grid-${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+                        <outputFileNameMapping>Grid-Bukkit.${artifact.extension}</outputFileNameMapping>
 
                         <includes>
-                                <include>rocks.spud.grid:bukkit</include>
-                                <include>rocks.spud.grid:bungee</include>
+                                <include>rocks.spud.grid.bukkit:plugin</include>
+                        </includes>
+                </dependencySet>
+                <dependencySet>
+                        <outputDirectory>plugin</outputDirectory>
+                        <useProjectArtifact>false</useProjectArtifact>
+                        <outputFileNameMapping>Grid-BungeeCord.${artifact.extension}</outputFileNameMapping>
+
+                        <includes>
+                                <include>rocks.spud.grid.bungee:plugin</include>
                         </includes>
                 </dependencySet>
         </dependencySets>

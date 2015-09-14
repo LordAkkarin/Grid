@@ -20,13 +20,12 @@
 
         <!-- Parent Artifact Information -->
         <parent>
+                <groupId>rocks.spud.grid.bukkit</groupId>
                 <artifactId>parent</artifactId>
-                <groupId>rocks.spud.grid</groupId>
                 <version>1.0-SNAPSHOT</version>
         </parent>
 
         <!-- Artifact Information -->
-        <groupId>rocks.spud.grid.bukkit</groupId>
         <artifactId>api</artifactId>
         <packaging>jar</packaging>
 
@@ -36,14 +35,16 @@
 
         <!-- Dependencies -->
         <dependencies>
-                <dependency>
-                        <groupId>org.bukkit</groupId>
-                        <artifactId>bukkit</artifactId>
-                </dependency>
-
+                <!-- Globals -->
                 <dependency>
                         <groupId>rocks.spud.grid</groupId>
                         <artifactId>common</artifactId>
+                </dependency>
+
+                <!-- External Dependencies -->
+                <dependency>
+                        <groupId>org.bukkit</groupId>
+                        <artifactId>bukkit</artifactId>
                 </dependency>
 
                 <dependency>

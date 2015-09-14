@@ -20,25 +20,25 @@
 
         <!-- Parent Artifact Information -->
         <parent>
-                <groupId>rocks.spud.grid</groupId>
+                <groupId>rocks.spud.grid.bungee</groupId>
                 <artifactId>parent</artifactId>
                 <version>1.0-SNAPSHOT</version>
         </parent>
 
         <!-- Artifact Information -->
-        <artifactId>common</artifactId>
+        <artifactId>api</artifactId>
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->
-        <name>Grid Common</name>
-        <description>Provides implementations needed on all implementation "sides" of Grid.</description>
+        <name>Grid API</name>
+        <description>Provides access to the Grid implementation to BungeeCord plugins.</description>
 
         <!-- Dependencies -->
         <dependencies>
                 <!-- External Dependencies -->
                 <dependency>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-buffer</artifactId>
+                        <groupId>net.md-5</groupId>
+                        <artifactId>bungeecord-api</artifactId>
                 </dependency>
 
                 <dependency>

@@ -20,25 +20,37 @@
 
         <!-- Parent Artifact Information -->
         <parent>
+                <groupId>rocks.spud.grid.bukkit</groupId>
                 <artifactId>parent</artifactId>
-                <groupId>rocks.spud.grid</groupId>
                 <version>1.0-SNAPSHOT</version>
         </parent>
 
         <!-- Artifact Information -->
-        <groupId>rocks.spud.grid.bungee</groupId>
-        <artifactId>api</artifactId>
+        <artifactId>plugin</artifactId>
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->
-        <name>Grid API</name>
-        <description>Provides access to the Grid implementation to BungeeCord plugins.</description>
+        <name>Grid Bukkit Plugin</name>
+        <description>Provides simplified access to the Grid chat system.</description>
 
         <!-- Dependencies -->
         <dependencies>
+                <!-- APIs -->
                 <dependency>
-                        <groupId>net.md-5</groupId>
-                        <artifactId>bungeecord-api</artifactId>
+                        <groupId>rocks.spud.grid.bukkit</groupId>
+                        <artifactId>api</artifactId>
+                </dependency>
+
+                <!-- Globals -->
+                <dependency>
+                        <groupId>rocks.spud.grid</groupId>
+                        <artifactId>common</artifactId>
+                </dependency>
+
+                <!-- External Dependencies -->
+                <dependency>
+                        <groupId>org.bukkit</groupId>
+                        <artifactId>bukkit</artifactId>
                 </dependency>
 
                 <dependency>
@@ -49,6 +61,19 @@
 
         <!-- Build Settings -->
         <build>
+                <resources>
+                        <!-- Plugin Metadata -->
+                        <resource>
+                                <directory>${project.basedir}/src/main/resources</directory>
+                                <targetPath>.</targetPath>
+                                <filtering>true</filtering>
+
+                                <includes>
+                                        <include>plugin.yml</include>
+                                </includes>
+                        </resource>
+                </resources>
+
                 <plugins>
                         <!-- Java Compiler Plugin -->
                         <plugin>
@@ -60,6 +85,12 @@
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-jar-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Shade -->
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-shade-plugin</artifactId>
                         </plugin>
 
                         <!-- Findbugs -->
@@ -84,6 +115,10 @@
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-deploy-plugin</artifactId>
+
+                                <configuration>
+                                        <skip>true</skip>
+                                </configuration>
                         </plugin>
                 </plugins>
         </build>

@@ -20,8 +20,8 @@
 
         <!-- Parent Artifact Information -->
         <parent>
-                <artifactId>parent</artifactId>
                 <groupId>rocks.spud.grid</groupId>
+                <artifactId>parent</artifactId>
                 <version>1.0-SNAPSHOT</version>
         </parent>
 
@@ -35,16 +35,7 @@
 
         <!-- Dependencies -->
         <dependencies>
-                <dependency>
-                        <groupId>rocks.spud.grid</groupId>
-                        <artifactId>bukkit</artifactId>
-                </dependency>
-
-                <dependency>
-                        <groupId>rocks.spud.grid</groupId>
-                        <artifactId>bungee</artifactId>
-                </dependency>
-
+                <!-- APIs -->
                 <dependency>
                         <groupId>rocks.spud.grid.bungee</groupId>
                         <artifactId>api</artifactId>
@@ -54,17 +45,22 @@
                         <groupId>rocks.spud.grid.bukkit</groupId>
                         <artifactId>api</artifactId>
                 </dependency>
+
+                <!-- Plugins -->
+                <dependency>
+                        <groupId>rocks.spud.grid.bukkit</groupId>
+                        <artifactId>plugin</artifactId>
+                </dependency>
+
+                <dependency>
+                        <groupId>rocks.spud.grid.bungee</groupId>
+                        <artifactId>plugin</artifactId>
+                </dependency>
         </dependencies>
 
         <!-- Build Settings -->
         <build>
                 <plugins>
-                        <!-- Java Compiler Plugin -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                        </plugin>
-
                         <!-- Jar Creation -->
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
@@ -75,24 +71,6 @@
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-shade-plugin</artifactId>
-                        </plugin>
-
-                        <!-- Findbugs -->
-                        <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>findbugs-maven-plugin</artifactId>
-                        </plugin>
-
-                        <!-- Attach Sources -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-source-plugin</artifactId>
-                        </plugin>
-
-                        <!-- Attach JavaDoc -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-javadoc-plugin</artifactId>
                         </plugin>
 
                         <!-- Assembly -->
