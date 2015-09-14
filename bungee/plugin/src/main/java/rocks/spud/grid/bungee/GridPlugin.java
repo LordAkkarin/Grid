@@ -23,6 +23,7 @@ import rocks.spud.grid.bungee.event.PluginChannelListener;
 import rocks.spud.grid.bungee.implementation.Grid;
 
 import javax.annotation.Nullable;
+import java.util.logging.Filter;
 
 /**
  * Provides an entry point for BungeeCord servers.
@@ -61,12 +62,15 @@ public class GridPlugin extends Plugin {
 
                 // Okay let me get this straight: This is not nice in any way imaginable but that stupid manager annoys
                 // the hell out of me ...
-                this.getProxy ().getLogger ().setFilter (new UltimateSecurityManagerFilter ());
+                {
+                        Filter originalFilter = this.getProxy ().getLogger ().getFilter ();
+                        this.getProxy ().getLogger ().setFilter (new UltimateSecurityManagerFilter ());
 
-                try {
-                        this.grid = new Grid (this);
-                } finally {
-                        this.getProxy ().getLogger ().setFilter (null);
+                        try {
+                                this.grid = new Grid (this);
+                        } finally {
+                                this.getProxy ().getLogger ().setFilter (originalFilter);
+                        }
                 }
 
                 this.getProxy ().registerChannel (PluginChannelListener.CHANNEL_NAME);
